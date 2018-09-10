@@ -3,7 +3,7 @@
 const program = require('commander')
 const glob = require('glob')
 const path = require('path')
-const transformFileSync = require('babel-core').transformFileSync
+const transformFileSync = require('@babel/core').transformFileSync
 
 function getConfig() {
   let config = {}
@@ -23,10 +23,9 @@ function run(path) {
       if (filename.includes('node_modules')) return 
       if (filename.indexOf('_') !== -1) return
       transformFileSync(filename, {
-        presets: ['babel-preset-es2015', 'babel-preset-stage-0', 'babel-preset-react'].map(require.resolve),
+        presets: ['@babel/preset-env', '@babel/preset-react'],
         plugins: [
-          require.resolve('babel-plugin-transform-decorators-legacy'),
-          [require.resolve('babel-plugin-magicd'), Object.assign({}, config)]
+          ['babel-plugin-magicd', Object.assign({}, config)]
         ]
       })
     })

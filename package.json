@@ -1,6 +1,6 @@
 {
   "name": "magicd",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "i18n pick tool",
   "main": "index.js",
   "bin": {
@@ -9,12 +9,10 @@
   "author": "jason",
   "license": "MIT",
   "dependencies": {
-    "babel-core": "^6.26.3",
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
     "babel-plugin-magicd": "^1.0.0",
-    "babel-plugin-transform-decorators-legacy": "^1.3.5",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
     "commander": "^2.17.1",
     "glob": "^7.1.3"
   }
