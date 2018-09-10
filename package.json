@@ -10,7 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "babel-core": "^6.26.3",
-    "babel-plugin-magicd": "0.0.16",
+    "babel-plugin-magicd": "^1.0.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.5",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
