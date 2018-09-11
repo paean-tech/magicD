@@ -23,14 +23,8 @@ function run(path) {
       if (filename.includes('node_modules')) return
       if (filename.indexOf('_') !== -1) return
       transformFileSync(filename, {
-        presets: [
-          ['@babel/preset-env', {
-            targets: {
-              node: 'current'
-            }
-          }], '@babel/preset-react'],
+        presets: [require.resolve('babel-preset-umi')],
         plugins: [
-          ['@babel/plugin-proposal-decorators', { legacy: true, decoratorsBeforeExport: true }],
           ['babel-plugin-magicd', Object.assign({}, config)]
         ]
       })
