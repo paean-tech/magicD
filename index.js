@@ -17,19 +17,27 @@ function getConfig() {
 
 function run(path) {
   const config = getConfig()
-  const exclude = config.exclude || [] 
+  const exclude = config.exclude || []
   glob(`${path}/**/*.{js, jsx}`, { ignore: exclude.map(pattern => `${path}/${pattern}`)}, (error, files) => {
     files.forEach(filename => {
-      if (filename.includes('node_modules')) return 
+      if (filename.includes('node_modules')) return
       if (filename.indexOf('_') !== -1) return
       transformFileSync(filename, {
-        presets: ['@babel/preset-env', '@babel/preset-react'],
+        presets: [
+          ['@babel/preset-env', {
+            targets: {
+              node: 'current'
+            }
+          }],
+          '@babel/preset-react'
+        ],
         plugins: [
+          ['@babel/plugin-proposal-decorators', { legacy: true }],
           ['babel-plugin-magicd', Object.assign({}, config)]
         ]
       })
     })
-    
+
   })
 }
 program.parse(process.argv)
