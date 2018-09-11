@@ -1,6 +1,6 @@
 {
   "name": "magicd",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "i18n pick tool",
   "main": "index.js",
   "bin": {
