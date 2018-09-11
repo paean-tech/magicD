@@ -4,7 +4,7 @@ i18n pick tool
 ### Getting Started
 
 ```
-  npm install magicD
+  npm install magicD -D
   npx magicD ./src
 ```
 
