@@ -5,6 +5,8 @@ const path = require('path')
 const { startsWith, mapKeys, chain, pick, pickBy, merge, template, omit, keys, includes, get, uniq } = require('lodash')
 const { readFileSync, existsSync, writeFileSync } = require('fs')
 const mkdirp = require('mkdirp')
+const diff = require('diff')
+const chalk = require('chalk')
 const transformFileSync = require('@babel/core').transformFileSync
 let scannedKeyList = []
 
@@ -46,10 +48,24 @@ function run(loc) {
         plugins: [scan]
       })
     })
+    let isNone = true
     config.lngs.forEach(lng => {
       const loc = path.relative(process.cwd(), template(config.dest, { interpolate: config.interpolate })({ lng, ns: config.ns }))
-      saveJsonFile(loc, scannedKeyList)
+      let prefix = loc
+      const oldTranslations = existJsonFile(loc)
+      const newTranslations = saveJsonFile(loc, scannedKeyList)
+      const diffLines = diff.diffJson(oldTranslations, newTranslations)
+      diffLines.forEach(line => {
+        if (line.value != null && line.added != null || line.removed != null) {
+          isNone = false
+          const color = line.added === true ? 'green' : 'red'
+          const diffSymbol = line.added === true ? '+' : '-'
+          console.log(chalk.keyword(color)(prefix + '\n' + diffSymbol + ' ' + line.value))
+          prefix = ''
+       }
+      })
     })
+    isNone && console.log('Pick result: Noting')
   })
 }
 
