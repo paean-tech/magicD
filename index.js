@@ -39,7 +39,7 @@ function getConfig() {
 
 function run(loc) {
   const config = getConfig()
-  glob(`${loc}/**/*.{js, jsx}`, { ignore: config.exclude.map(pattern => `${path}/${pattern}`)}, (error, files) => {
+  glob(`${loc}/**/*.{js, jsx}`, { ignore: config.exclude.map(pattern => `${loc}/${pattern}`)}, (error, files) => {
     files.forEach(filename => {
       if (filename.includes('node_modules')) return
       if (filename.indexOf('_') !== -1) return
