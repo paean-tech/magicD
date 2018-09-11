@@ -28,11 +28,9 @@ function run(path) {
             targets: {
               node: 'current'
             }
-          }],
-          '@babel/preset-react'
-        ],
+          }], '@babel/preset-react'],
         plugins: [
-          ['@babel/plugin-proposal-decorators', { legacy: true }],
+          ['@babel/plugin-proposal-decorators', { legacy: true, decoratorsBeforeExport: true }],
           ['babel-plugin-magicd', Object.assign({}, config)]
         ]
       })
