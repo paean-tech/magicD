@@ -25,7 +25,7 @@ function getConfig() {
       messageDir: config.messageDir || path.join(cwd, './i18n/{{lng}}/{{ns}}.json'),
       removeUnusedKey: config.removeUnusedKey || false,
       exclude: config.exclude || [],
-      dirtyPrefix: isEmpty(config.dirtyPrefix) ? config.dirtyPrefix : '~',
+      dirtyPrefix: isEmpty(config.dirtyPrefix) ? '~' : config.dirtyPrefix,
       sort: config.sort || true,
       lngs: config.lngs || [],
       ns: config.ns || 'translation',
