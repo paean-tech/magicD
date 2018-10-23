@@ -1,6 +1,6 @@
 {
   "name": "magicd",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "i18n pick tool",
   "homepage": "https://github.com/paean-tech/magicD",
   "main": "index.js",

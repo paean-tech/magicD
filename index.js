@@ -2,7 +2,7 @@
 const program = require('commander')
 const glob = require('glob')
 const path = require('path')
-const { startsWith, mapKeys, chain, pick, pickBy, merge, template, omit, keys, includes, get, uniq } = require('lodash')
+const { isEmpty, startsWith, mapKeys, chain, pick, pickBy, merge, template, omit, keys, includes, get, uniq } = require('lodash')
 const { readFileSync, existsSync, writeFileSync } = require('fs')
 const mkdirp = require('mkdirp')
 const diff = require('diff')
@@ -25,7 +25,7 @@ function getConfig() {
       messageDir: config.messageDir || path.join(cwd, './i18n/{{lng}}/{{ns}}.json'),
       removeUnusedKey: config.removeUnusedKey || false,
       exclude: config.exclude || [],
-      dirtyPrefix: config.dirtyPrefix || '~',
+      dirtyPrefix: isEmpty(config.dirtyPrefix) ? config.dirtyPrefix : '~',
       sort: config.sort || true,
       lngs: config.lngs || [],
       ns: config.ns || 'translation',
