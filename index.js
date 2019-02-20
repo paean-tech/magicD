@@ -128,7 +128,7 @@ function scan({ types: t }) {
           if (key != null) {
             scannedKeyList = uniq(scannedKeyList.concat([key]))
           }
-        } else if(config.loose === true && config.format.funcList.some(funcName => calleeName === funcName && path.scope.hasOwnBinding(funcName))) {
+        } else if(config.loose === true && config.format.funcList.some(funcName => calleeName === funcName && path.scope.hasBinding(funcName))) {
           const args = path.get('arguments')
           if (!t.isStringLiteral(args[0])) return
           const key = get(args, '[0].node.value', null)
