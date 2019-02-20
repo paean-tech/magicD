@@ -27,6 +27,7 @@ function getConfig() {
       exclude: config.exclude || [],
       dirtyPrefix: config.dirtyPrefix != null ? config.dirtyPrefix : '~',
       sort: config.sort || true,
+      loose: config.loose || false,
       lngs: config.lngs || [],
       ns: config.ns || 'translation',
       defaultVal: config.defaultVal || '',
@@ -119,7 +120,15 @@ function scan({ types: t }) {
     visitor: {
       CallExpression (path, state) {
         const config = getConfig()
-        if (referencesImport(path.get('callee'), config.moduleSourceName, config.format.funcList)){
+        const calleeName = path.get('callee').node.name
+        if (config.loose === false && referencesImport(path.get('callee'), config.moduleSourceName, config.format.funcList)){
+          const args = path.get('arguments')
+          if (!t.isStringLiteral(args[0])) return
+          const key = get(args, '[0].node.value', null)
+          if (key != null) {
+            scannedKeyList = uniq(scannedKeyList.concat([key]))
+          }
+        } else if(config.loose === true && config.format.funcList.some(funcName => calleeName === funcName && path.scope.hasOwnBinding(funcName))) {
           const args = path.get('arguments')
           if (!t.isStringLiteral(args[0])) return
           const key = get(args, '[0].node.value', null)
